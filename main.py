@@ -54,7 +54,7 @@ def get_grid_boundaries(image: Image.Image) -> dict[str, tuple[int, int]]:
 
     return grid_boundaries
 
-def get_board(screenshot_filepath : str): 
+def get_board(screenshot_filepath:str = "screen.png"):
     image = Image.open(screenshot_filepath).convert("RGB")
     grid_boundaries = get_grid_boundaries(image)
 
@@ -62,7 +62,7 @@ def get_board(screenshot_filepath : str):
     
     
 take_screenshot()
-get_board("screen.png")
+get_board()
     
 
 
