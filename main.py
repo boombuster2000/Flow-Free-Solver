@@ -1,11 +1,13 @@
 import subprocess
 from PIL import Image
 
+DEFAULT_SCREENSHOT_FILEPATH = "./screen.png"
+
 def tap(x:int, y:int) -> None:
     subprocess.run(f"adb shell input tap {x} {y}", shell=True)
 
-def take_screenshot(fp:str="screen") -> None:
-    subprocess.run(f"adb exec-out screencap -p > {fp}.png", shell=True)
+def take_screenshot(fp:str=DEFAULT_SCREENSHOT_FILEPATH) -> None:
+    subprocess.run(f"adb exec-out screencap -p > {fp}", shell=True)
 
 def get_screen_resolution() -> tuple[int,int]:
     output = subprocess.check_output(f"adb shell wm size", shell=True, text=True).strip()
@@ -54,16 +56,17 @@ def get_grid_boundaries(image: Image.Image) -> dict[str, tuple[int, int]]:
 
     return grid_boundaries
 
-def get_board(screenshot_filepath:str = "screen.png"):
-    image = Image.open(screenshot_filepath).convert("RGB")
+def get_board(grid_boundaries:dict[str, tuple[int,int]]):
+    pass
+    
+    
+def main():
+    take_screenshot()
+    image = Image.open(DEFAULT_SCREENSHOT_FILEPATH).convert("RGB")
     grid_boundaries = get_grid_boundaries(image)
-
     print(grid_boundaries)
     
-    
-take_screenshot()
-get_board()
-    
 
 
-
+if __name__ == "__main__":
+    main()
